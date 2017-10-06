@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ninja Money</title>
+    <style>
+        .place{
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+        text-align: center;
+        border: 2pt solid black;
+        margin: 1em;
+        }
+        .act{
+            min-width: 400px;
+            max-width: 920px;
+            height: 100px;
+            border: 1pt solid black;
+            overflow-y: scroll;
+            margin: 1em;
+            border: 2pt solid black;
+        }
+        .log{
+            margin: 0px;
+        }
+        input{
+            box-shadow: 2px 2px 1px black;
+        }
+    </style>
+</head>
+<body>
+    <p>Your Gold: <%= session[:gold] %></p>
+    <div class="place">
+        <h1>Farm</h1>
+        <p>(earns 10-20 golds)</p>
+        <form action="/rpg/farm" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input type="submit" value="Find Gold!"/>
+        </form>
+    </div>
+    <div class="place">
+        <h1>Cave</h1>
+        <p>(earns 5-10 golds)</p>
+        <form action="/rpg/cave" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input type="submit" value="Find Gold!"/>
+        </form>
+    </div>
+    <div class="place">
+        <h1>House</h1>
+        <p>(earns 2-5 golds)</p>
+        <form action="/rpg/house" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input type="submit" value="Find Gold!"/>
+        </form>
+    </div>
+    <div class="place">
+        <h1>Casino</h1>
+        <p>(earns/takes 0-50 golds)</p>
+        <form action="/rpg/casino" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input type="submit" value="Find Gold!"/>
+        </form>
+    </div>
+    <p>Activities:</p>
+    <div class="act">
+        <% session[:log].each do |log| %>
+        <p class="log" style="color: <%= log[1] %>"><%= log[0] %></p>
+        <% end %>
+    </div>
+    <form action="/reset" method="post">
+        <input type="submit" value="Reset">
+    </form>
+</body>
+</html>
